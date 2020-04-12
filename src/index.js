@@ -50,6 +50,8 @@ import './index.css';
         history: [{
           squares: Array(9).fill(null),
         }],
+        lastCol: null, //最後においた列
+        lastRow: null, //最後においた行
         stepNumber: 0,
         xIsNext: true,
       };
@@ -67,6 +69,8 @@ import './index.css';
         history: history.concat([{
           squares: squares,
         }]),
+        lastCol: (i % 3) + 1,
+        lastRow: Math.floor(i / 3) + 1,
         stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
       });
@@ -86,7 +90,7 @@ import './index.css';
 
       const moves = history.map((step, move) => {
         const desc = move ?
-          'Go to move #' + move : 
+          'Go to move #' + move + ": col:" + this.state.lastCol + "/ row:" + this.state.lastRow + ", " + history[move]["squares"][0] + ", " + current.squares : 
           'Go to game start';
           return (
             <li>
